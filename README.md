@@ -1,1 +1,1 @@
-# NYME
+# New York Mock Exchange
