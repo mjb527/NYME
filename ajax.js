@@ -216,30 +216,59 @@ const api = '885e1189903c4121bb6d6fdd11a43d2d';
 
   }
 
+  // on load, run this so we always have an account set up
   function setProfile() {
-    let stonks = {};
     // if no account exists, create an account with $2500
     if(localStorage.getItem('stonks') === null) {
+      let stonks = {};
       stonks.balance = 2500;
-      stonks.stonkList = {};
+      stonks.stonkList = {'IBM' : 10, 'AAPL' : 5};
       stonks.total = 2500; // balance + worth of the list of stocks
+
+      // add to localStorage
+      localStorage.setItem('stonks', JSON.stringify(stonks));
     }
-    else stonks = JSON.parse(localStorage.getItem('stonks'));
-    
   }
 
   function getProfile() {
     // get list of their stocks
-    const stocks = localStorage.getItem('stonks');
-
+    const stonks = JSON.parse(localStorage.getItem('stonks'));
+    const balance = stonks.balance;
+    const stockList = stonks.stonkList;
+    const keys = Object.keys(stockList).toString();
+    console.log(keys);
 
     // query the list of the stock symbols
+    const url = `https://api.twelvedata.com/price?symbol=${keys}&apikey=${api}`;
 
-    // get the number of each to create a balance for each plus a sub total
+    const settings = {
+      "async" : true,
+      "crossDomain" : true,
+      "url" : url,
+      "method" : "GET"
+    }
+
+    $.ajax(settings).then(function (response) {
+      const data = addStockValue(stockList, balance, response);
+      // do with data what we must
+    });
 
     // output total as well which is total stock prices * the number stock + their wallet
 
 
+  }
+
+  function addStockValue(stocksList, wallet, stockPrices) {
+    const formattedData = {balance: wallet};
+    // calculates the value of the number of stocks per price
+    $.each(stocksList, function(index, value) {
+      formattedData[index] = {price: stockPrices[index].price,
+                              count: value,
+                              worth: value * parseFloat(stockPrices[index].price)}
+      formattedData.balance += value * parseFloat(stockPrices[index].price);
+    });
+    formattedData.balance = formattedData.balance.toFixed(2);
+    return formattedData;
   }
 
 
