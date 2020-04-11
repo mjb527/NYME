@@ -2,7 +2,7 @@
   function getIndexes() {
     const api = '885e1189903c4121bb6d6fdd11a43d2d';
 
-    const symbols = ['DJI', 'GSPC', 'IXIC'];
+    const symbols = ['DJI', 'SPX', 'IXIC'];
     const chartData = [];
 
     // "url": `https://twelvedata.p.rapidapi.com/bbands?sd=2&outputsize=24&series_type=close&ma_type=SMA&time_period=20&symbol=${symbol}&interval=1day&apikey=${api}`,
@@ -23,7 +23,7 @@
       const settings = {
         "async" : true,
         "crossDomain" : true,
-        "url" : `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=1week&apikey=${api}`,
+        "url" : `https://api.twelvedata.com/time_series?symbol=${symbol}&outputsize=24&interval=1week&apikey=${api}`,
         "method" : "GET"
       }
 
@@ -42,7 +42,7 @@
 
         let label = '';
         if(symbol === 'DJI') label = 'DOW';
-        else if(symbol === 'GSPC') label = 'S&P 500';
+        else if(symbol === 'SPX') label = 'S&P 500';
         else label = 'NASDAQ';
 
         // build data into the right format, store in list, then create a chart
