@@ -250,10 +250,24 @@ const api = '885e1189903c4121bb6d6fdd11a43d2d';
 
     $.ajax(settings).then(function (response) {
       const data = addStockValue(stockList, balance, response);
-      // do with data what we must
-    });
+      /*
+      example data:
+      {
+        balance: <some number to 2 decimal places,
+        # stock<n> is going to the stock symbol
+        stock1: {
+          count: <number of this stock owned>,
+          price: <price of the stock when they logged in>,
+          worth: <count * price>
+        },
+        stock2: {
+          ...
+        }
+      }
+      */
 
-    // output total as well which is total stock prices * the number stock + their wallet
+      // do with data what we must - add to page somewhere
+    });
 
 
   }
