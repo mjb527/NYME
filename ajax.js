@@ -1,24 +1,16 @@
 
+const api = '885e1189903c4121bb6d6fdd11a43d2d';
+
+
+
   function getIndexes() {
-    const api = '885e1189903c4121bb6d6fdd11a43d2d';
 
     const symbols = ['DJI', 'SPX', 'IXIC'];
     const chartData = [];
 
     // "url": `https://twelvedata.p.rapidapi.com/bbands?sd=2&outputsize=24&series_type=close&ma_type=SMA&time_period=20&symbol=${symbol}&interval=1day&apikey=${api}`,
 
-
     symbols.forEach(symbol => {
-      // const settings = {
-      // 	"async": true,
-      // 	"crossDomain": true,
-      // 	"url": `https://twelvedata.p.rapidapi.com/bbands?outputsize=24&symbol=${symbol}&interval=1week&apikey=${api}`,
-      // 	"method": "GET",
-      // 	"headers": {
-      // 		"x-rapidapi-host": "twelvedata.p.rapidapi.com",
-      // 		"x-rapidapi-key": "d087c8eb1fmsh4556820e86d6313p134de0jsn55cd89f11097"
-      // 	}
-      // }
 
       const settings = {
         "async" : true,
@@ -63,7 +55,8 @@
   // needs to be formatted as follows:
   // [{ label : 'the name of the stock or symbol',
   //    dates : [array of dates to be used],
-  //    data : [dataset, same length as dates]}]
+  //    data : [dataset, same length as dates]},
+  // {...}]
 
   function buildChart(stockData) {
     console.log(stockData);
@@ -115,10 +108,138 @@
                       beginAtZero: true
                   }
               }]
-              // TODO populate x axis with every 20th date, with the origin being 100 days ago
           }
       }
     });
+  }
+
+  function getQuotes() {
+    // comma delimited list of symbols to query the api
+    // add comma to adjust the return json so it's consistent
+    const symbols = $('#input').val().trim()+',';
+    // make sure the list is comma delimited and not spaces
+    symbols.replace(/ /g, ',');
+    let outputsize = '';
+    let interval = '';
+
+    // TODO radio buttons for changing search parameters
+    // 1 day, hour by hour, 3 days, every 3 hours, 1 week, daily, 1 month daily
+    if($("#oneDay").prop("checked", true)) {
+        outputsize = '24';
+        interval = '1h'
+    }
+    else if($("#oneWeek").prop("checked", true)) {
+      outputsize = '7';
+      interval = '1day';
+    }
+    else if($("#twoWeek").prop("checked", true)) {
+      outputsize = '14';
+      interval = '1day';
+    }
+    else if($("#oneMonth").prop("checked", true)) {
+      outputsize = '30';
+      interval = '1day';
+    }
+    else if($("#threeMonth").prop("checked", true)) {
+      outputsize = '12';
+      interval = '1week';
+    }
+    else if($("#oneYear").prop("checked", true)) {
+      outputsize = '52';
+      interval = '1week';
+    }
+    else {
+      outputsize = '24';
+      interval = '1week';
+    }
+
+    const canvas = document.querySelector('#canvas');
+
+    const settings = {
+      "async" : true,
+      "crossDomain" : true,
+      "url" : `https://api.twelvedata.com/time_series?symbol=${symbols}&outputsize=${outputsize}&interval=${interval}&apikey=${api}`,
+      "method" : "GET"
+    }
+
+
+    $.ajax(settings).then(function (response) {
+      // console.log(response);
+      chartData = [];
+
+      // dates for the table
+      const dates = [];
+      // populate dates array
+      const firstObjValue = response[Object.keys(response)[0]].values;
+      $.each(firstObjValue, function(index, x) {
+        dates.push(x.datetime);
+      });
+
+      // create table
+      const table = $('<table>');
+      // create table header
+      const headerRow = $('<tr>');
+      // top left corner
+      headerRow.append('<th>')
+      dates.forEach((date) => {
+        headerRow.append(`<th>${date}</th>`);
+      });
+      table.append(headerRow);
+
+      $.each(response, function(index, value) {
+        const formattedData = {};
+        // value will be the value for each key (index)
+        const row = $('<tr>');
+        row.append(`<th>${value.meta.symbol}</th>`);
+        formattedData.label = value.meta.symbol;
+        formattedData.data = [];
+        formattedData.dates = dates;
+
+        // table variables will be the open, close, and high
+        //chart will use the highest of each day, week, etc.
+        // value.values is each data point's json with datetime, high, low, etc.
+        $.each(value.values, function(index, data){
+          formattedData.data.push(data.high);
+          row.append(`<td>Open: ${data.open}<br>Close: ${data.close}<br>High: ${data.high}</td>`);
+          row.css('font-size', '10px');
+
+        });
+        console.log(formattedData);
+        chartData.push(formattedData);
+        table.append(row);
+
+      });
+      $('#tableDiV').append(table);
+      buildChart(chartData);
+
+    });
+
+  }
+
+  function setProfile() {
+    let stonks = {};
+    // if no account exists, create an account with $2500
+    if(localStorage.getItem('stonks') === null) {
+      stonks.balance = 2500;
+      stonks.stonkList = {};
+      stonks.total = 2500; // balance + worth of the list of stocks
+    }
+    else stonks = JSON.parse(localStorage.getItem('stonks'));
+    
+  }
+
+  function getProfile() {
+    // get list of their stocks
+    const stocks = localStorage.getItem('stonks');
+
+
+    // query the list of the stock symbols
+
+    // get the number of each to create a balance for each plus a sub total
+
+    // output total as well which is total stock prices * the number stock + their wallet
+
+
   }
 
 
@@ -127,42 +248,3 @@
 
   // alphavantage api key
   //7FIN2ZW34TALB8CQ
-
-//   const api = '885e1189903c4121bb6d6fdd11a43d2d';
-//   const symbols = ['DJI', 'GSPC', 'IXIC'];
-//   let chartData = [];
-//
-//   // get each of the major 3 indexes' quotes for the past 100 days
-//   for(let i = 0; i < 3; i++) {
-//     const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' + symbols[i] + '&outputsize=compact&apikey=' + api;
-//
-//
-//     $.ajax({url, 'Access-Control-Allow-Origin': '*'})
-//       .then(function(response)  {
-//           console.log(response);
-//           console.log(symbols[i]);
-//
-//           const symbol = response["Meta Data"]["2. Symbol"];
-//           // console.log('Symbol: ' + symbol);
-//           const dailyData = response["Time Series (Daily)"];
-//           // console.log(dailyData);
-//
-          // // returns all keys in an array in the chronological order starting from today to today - 99 days
-          // const dates = Object.keys(dailyData);
-          // // console.log('Dates: ' + dates);
-          //
-          // // build data into the right format, store in list, then create a chart
-          // chartData.push({
-          //   symbol : symbol,
-          //   dates: dates,
-          //   data : dailyData
-          // });
-//
-//           // buildChart(chartData);
-//
-//         });
-//       }
-//       console.log(chartData);
-//
-// });
-//
