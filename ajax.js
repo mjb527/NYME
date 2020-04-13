@@ -1,6 +1,9 @@
 
 const api = '885e1189903c4121bb6d6fdd11a43d2d';
 
+let userBalance = 0;
+let stocksList;
+
 
 
   function getIndexes() {
@@ -122,7 +125,6 @@ const api = '885e1189903c4121bb6d6fdd11a43d2d';
     let outputsize = '';
     let interval = '';
 
-    // TODO radio buttons for changing search parameters
     // 1 day, hour by hour, 3 days, every 3 hours, 1 week, daily, 1 month daily
     if($("#oneDay").prop("checked", true)) {
         outputsize = '24';
@@ -148,6 +150,7 @@ const api = '885e1189903c4121bb6d6fdd11a43d2d';
       outputsize = '52';
       interval = '1week';
     }
+    // 6 month
     else {
       outputsize = '24';
       interval = '1week';
@@ -233,9 +236,9 @@ const api = '885e1189903c4121bb6d6fdd11a43d2d';
   function getProfile() {
     // get list of their stocks
     const stonks = JSON.parse(localStorage.getItem('stonks'));
-    const balance = stonks.balance;
-    const stockList = stonks.stonkList;
-    const keys = Object.keys(stockList).toString();
+    userBalance = stonks.balance;
+    stocksList = stonks.stonkList;
+    const keys = Object.keys(stocksList).toString();
     console.log(keys);
 
     // query the list of the stock symbols
@@ -249,7 +252,7 @@ const api = '885e1189903c4121bb6d6fdd11a43d2d';
     }
 
     $.ajax(settings).then(function (response) {
-      const data = addStockValue(stockList, balance, response);
+      const data = addStockValue(stocksList, userBalance, response);
       /*
       example data:
       {
@@ -283,6 +286,84 @@ const api = '885e1189903c4121bb6d6fdd11a43d2d';
     });
     formattedData.balance = formattedData.balance.toFixed(2);
     return formattedData;
+  }
+
+  function purchase(symbol, count) {
+    // can't be 0 or negative
+    if(count <= 1) {
+      // TODO create modal to alert user they need at least 1 stock
+
+      return;
+    }
+
+    // call api to get the current stock price for that symbol
+    const total = getValue(symbol.trim()) * count;
+
+    // check their available funds, if the price exceeds their amount, must alert user and return
+    if(total > userBalance) {
+      // TODO create modal and alert user they're broke
+
+      return;
+    }
+
+    userBalance -= total;
+
+    // adjust the count if they already have some of those stocks
+    if(stocksList[symbol] === undefined || stocksList[symbol] === null)
+      stocksList[symbol] += count;
+    // add the stock to the list if it does not exist in the list
+    else
+      stocksList[symbol] = count;
+
+    writeToLocalStorage();
+
+  }
+
+  function sell(symbol, count) {
+    // if count < 1, notify & return
+    if(count <= 0) {
+      // TODO: notify the user
+      return;
+    }
+    if(stockList[symbol] === null || stockList[symbol] === undefined) {
+      // TODO: notify the user
+      return;
+    }
+    // if there is an appropriate number of stocks specified
+    else if(stockList[symbol] > 0 && stockList[symbol] <= count) {
+      stockList[symbol] -= count;
+      userBalance += getValue(symbol) * count;
+    }
+    // if there is an inappropriate number of stocks ( < 0 or > available)
+    else
+      // TODO: notify the user
+      return;
+
+  }
+
+  function writeToLocalStorage() {
+    localStorage.setItem('stonks', JSON.stringify({'balance' : userBalance,
+        'stonkList' : stocksList}));
+  }
+
+  // return the current value of a stock
+  function getValue(symbol) {
+
+    const url = `https://api.twelvedata.com/price?symbol=${symbol}&apikey=${api}`;
+
+    const settings = {
+      "async" : true,
+      "crossDomain" : true,
+      "url" : url,
+      "method" : "GET"
+    }
+
+    $.ajax(settings).then(function(response) {
+
+      return parseFloat(response.price);
+
+    });
+
   }
 
 
