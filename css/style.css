@@ -1,0 +1,32 @@
+body {
+    background-image: url(https://mcdn.wallpapersafari.com/medium/87/27/eqKICU.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: bold;
+}
+
+.navbar-brand {
+    font-family: 'Abril Fatface', cursive;
+
+}
+.btn-outline-success {
+    border-color: white;
+    color: white;
+}
+
+.fa-search {
+    color: white;
+    
+}
+
+#canvas {
+    width: 400;
+    height: 200;
+    border: 2px solid black;
+  
+}
+
+footer {
+    text-align: center;
+}  
