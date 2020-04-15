@@ -1,0 +1,56 @@
+body {
+    background-image: url(https://mcdn.wallpapersafari.com/medium/87/27/eqKICU.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: bold;
+}
+
+#nav {
+    margin-bottom: 10px;
+}
+
+.navbar-brand {
+    font-family: 'Abril Fatface', cursive;
+
+}
+
+#radio-buttons {
+    margin-bottom: 35px;
+}
+
+.btn-outline-success {
+    border-color: white;
+    color: white;
+}
+
+.fa-search {
+    color: white;
+    
+}
+
+
+#canvas {
+    width: 1000;
+    height: 200;
+    border: 2px solid black;
+  
+}
+
+#table-container {
+    margin-top: 35px;
+    position: relative;
+    margin-bottom: 35px;
+}
+
+#chart-container {
+    margin-top: 75px;
+}
+
+footer {
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+  
+    }  
