@@ -11,19 +11,116 @@
     <script src="https://kit.fontawesome.com/08e270e5ef.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand"><i class="fas fa-chart-line"></i> New York Mock Exchange</a>
-    </nav>
-    <br>
+    <!--Prompt statin to agree terms and services-->
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         By using this website you agree to the <strong>Terms of Service</strong>: <a href="#">New York Mock Exchange</a>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="container">
+    <!--Header/Navbar-->
+    <nav class="navbar navbar-light bg-light" id = "nav">
+        <a class="navbar-brand"><i class="fas fa-chart-line"></i> New York Mock Exchange</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#profile-modal" href="#">Profile <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#buy-modal" href="#">Buy</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#sell-modal" href="#">Sell</a>
+              </li>
+                </a>
+                
+    </nav>
+    
+    <!--Contains search input/button and all radio buttons-->
+    <div id = "radio-buttons">
+            <form class="form-inline mx-4" align = "center">
+                <div class="form-inline" align = "center">
+                <input class="form-control mr-sm-2" type="search" placeholder="enter as AAPL,IBM (no spaces)"
+                    aria-label="Search">
+
+                <button class="btn btn-outline-success mr-sm-2" type="submit"><i
+                        class="fas fa-search"></i></button>
+                <div class="col-auto">
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneDay"
+                            value="oneDay" checked>
+                        <label class="radio-inline " for="exampleRadios1">
+                            One Day
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneWeek"
+                            value="oneWeek">
+                        <label class="radio-inline" for="exampleRadios2">
+                            One Week
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="twoWeek" value="twoWeek">
+                        <label class="radio-inline" for="exampleRadios3">
+                            Two Week
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneMonth"
+                            value="oneMonth">
+                        <label class="radio-inline" for="exampleRadios4">
+                            One Month
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="threeMonth" value="threeMonth">
+                        <label class="radio-line" for="exampleRadios6">
+                            Three Month
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="sixMonth" value="sixMonth">
+                        <label class="radio-line" for="exampleRadios7">
+                            Six Month
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="form-check disabled">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneYear" value="oneYear">
+                        <label class="radio-line" for="exampleRadios8">
+                            52 Week
+                        </label>
+                    </div>
+
+            
+
+             </form>
+        </div>
+
+    
+    <div class="container" id = "chart-container" align = "center">
         <div class="row">
-            <div class="col"></div>
             <div class="col">x</div>
             <div class="col">x</div>
             <div class="col">x</div>
@@ -32,7 +129,6 @@
         </div>
         <br>
         <div class="row">
-            <div class="col"></div>
             <div class="col">x</div>
             <div class="col">x</div>
             <div class="col">x</div>
@@ -41,7 +137,6 @@
         </div>
         <br>
         <div class="row">
-            <div class="col"></div>
             <div class="col">x</div>
             <div class="col">x</div>
             <div class="col">x</div>
@@ -50,79 +145,10 @@
         </div>
     </div>
 
-    <form class="form-inline">
-        <div class="container">
-            <div class="row">
-                <input class="form-control mr-sm-2" type="search" placeholder="enter as AAPL,IBM (no spaces)"
-                    aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
-                        class="fas fa-search"></i></button>
-                <div class="col">
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneDay"
-                            value="oneDay" checked>
-                        <label class="form-check-label" for="exampleRadios1">
-                            One Day
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneWeek"
-                            value="oneWeek">
-                        <label class="form-check-label" for="exampleRadios2">
-                            One Week
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="twoWeek" value="twoWeek">
-                        <label class="form-check-label" for="exampleRadios3">
-                            Two Week
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneMonth"
-                            value="oneMonth">
-                        <label class="form-check-label" for="exampleRadios4">
-                            One Month
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="threeMonth" value="threeMonth">
-                        <label class="form-check-label" for="exampleRadios6">
-                            Three Month
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="sixMonth" value="sixMonth">
-                        <label class="form-check-label" for="exampleRadios7">
-                            Six Month
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneYear" value="oneYear">
-                        <label class="form-check-label" for="exampleRadios8">
-                            52 Week
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    
 
-    <div class="table-responsive">
-        <table class="table">
-            <table class="table table-hover">
+    <div class="table-responsive" id= "table-container">
+        <table class="table table-hover table-dark " align = "center">
                 <thead>
                     <tr>
                         <th scope="col"></th>
@@ -130,7 +156,6 @@
                         <th scope="col">Current</th>
                         <th scope="col">Open</th>
                         <th scope="col">Close</th>
-                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -160,7 +185,71 @@
         </table>
     </div>
 
-    <footer>&copy 2020 New York Mock Exchange</footer>
+    <footer id = "footer">&copy 2020 New York Mock Exchange</footer>
+
+    <div class="modal" tabindex="-1" role="dialog" id = "profile-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Profile</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id = "profile-body">
+              <p></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>    
+
+      <div class="modal" tabindex="-1" role="dialog" id = "buy-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" tabindex="-1" role="dialog" id = "sell-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                  
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
