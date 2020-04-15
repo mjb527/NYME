@@ -10,8 +10,7 @@ let stocksList;
 
     const symbols = ['DJI', 'SPX', 'IXIC'];
     const chartData = [];
-
-    // "url": `https://twelvedata.p.rapidapi.com/bbands?sd=2&outputsize=24&series_type=close&ma_type=SMA&time_period=20&symbol=${symbol}&interval=1day&apikey=${api}`,
+    let hasDates = false;
 
     symbols.forEach(symbol => {
 
@@ -23,8 +22,6 @@ let stocksList;
       }
 
       $.ajax(settings).then(function (response) {
-        console.log(symbol);
-        console.log(response);
 
         const data = [];
         const dates = [];
@@ -49,10 +46,43 @@ let stocksList;
 
         buildChart(chartData);
 
-      });
+        const table = $('#table');
+        // create table header
+        if(!hasDates) {
+          const firstObjValue = response[Object.keys(response)[0]].values;
+          $.each(firstObjValue, function(index, x) {
+            dates.push(x.datetime);
+          });
+          const headerRow = $('<tr>');
+          // top left corner
+          headerRow.append('<th>');
+          dates.forEach((date) => {
+            headerRow.append(`<th>${date}</th>`);
+          });
+          table.append(headerRow);
+          hasDates = true;
+        }
+
+        const row = $('<tr>');
+        row.append(`<th>${label}</th>`);
+        $.each(response.values, function(index, value) {
+          // value will be the value for each key (index)
+
+          // formattedData.label = value.meta.symbol;
+          // formattedData.data = [];
+          // formattedData.dates = dates;
+
+          // value.values is each data point's json with datetime, high, low, etc.
+          row.append(`<td>Open: ${value.open}<br>Close: ${value.close}<br>High: ${value.high}</td>`);
+          row.css('font-size', '10px');
+
+        });
+
+          table.append(row);
 
     });
-  }
+  });
+}
 
   // generic function to take dataset of any size and build a chart
   // needs to be formatted as follows:
@@ -62,7 +92,6 @@ let stocksList;
   // {...}]
 
   function buildChart(stockData) {
-    console.log(stockData);
 
     // const labelList = [];
     // for(let i = 0; i < 100; i+=20)
@@ -98,8 +127,6 @@ let stocksList;
 
     }
 
-    console.log(processedData);
-
     const ctx = document.querySelector('#canvas').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'line',
@@ -117,6 +144,7 @@ let stocksList;
   }
 
   function getQuotes() {
+    console.log(stockList);
     // comma delimited list of symbols to query the api
     // add comma to adjust the return json so it's consistent
     const symbols = $('#input').val().trim()+',';
@@ -178,8 +206,8 @@ let stocksList;
         dates.push(x.datetime);
       });
 
-      // create table
-      const table = $('<table>');
+      // get the table
+      const table = $('#table');
       // create table header
       const headerRow = $('<tr>');
       // top left corner
@@ -207,12 +235,10 @@ let stocksList;
           row.css('font-size', '10px');
 
         });
-        console.log(formattedData);
         chartData.push(formattedData);
         table.append(row);
 
       });
-      $('#tableDiV').append(table);
       buildChart(chartData);
 
     });
@@ -225,21 +251,23 @@ let stocksList;
     if(localStorage.getItem('stonks') === null) {
       let stonks = {};
       stonks.balance = 2500;
-      stonks.stonkList = {'IBM' : 10, 'AAPL' : 5};
-      stonks.total = 2500; // balance + worth of the list of stocks
+      stonks.stonkList = {};
+      stonks.total = 2500;
 
       // add to localStorage
       localStorage.setItem('stonks', JSON.stringify(stonks));
     }
   }
 
+  // TODO on button click, not on load
   function getProfile() {
     // get list of their stocks
     const stonks = JSON.parse(localStorage.getItem('stonks'));
     userBalance = stonks.balance;
     stocksList = stonks.stonkList;
+    // TODO set total
+    const total = 0;
     const keys = Object.keys(stocksList).toString();
-    console.log(keys);
 
     // query the list of the stock symbols
     const url = `https://api.twelvedata.com/price?symbol=${keys}&apikey=${api}`;
@@ -270,6 +298,23 @@ let stocksList;
       */
 
       // do with data what we must - add to page somewhere
+      let li_stocks = $('<ul>');
+      for(let i = 0; i < stocksList.length; i++) {
+        li_stocks.append(`<li>${stocksList[i]}</li>`);
+      }
+      $('#profile-body').html(`
+        <div class="modal-body">
+          <span class='my-2'>Your Balance: ${userBalance}</span>
+          <span class='my-2'>Stocks:</span>
+          ${li_stocks}
+          <span class='my-2'>Total: ${total}</span>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        `);
+
     });
 
 
@@ -290,9 +335,8 @@ let stocksList;
 
   function purchase(symbol, count) {
     // can't be 0 or negative
-    if(count <= 1) {
+    if(count < 1) {
       // TODO create modal to alert user they need at least 1 stock
-
       return;
     }
 
@@ -321,7 +365,7 @@ let stocksList;
 
   function sell(symbol, count) {
     // if count < 1, notify & return
-    if(count <= 0) {
+    if(count < 1) {
       // TODO: notify the user
       return;
     }
@@ -333,6 +377,7 @@ let stocksList;
     else if(stockList[symbol] > 0 && stockList[symbol] <= count) {
       stockList[symbol] -= count;
       userBalance += getValue(symbol) * count;
+      writeToLocalStorage();
     }
     // if there is an inappropriate number of stocks ( < 0 or > available)
     else
