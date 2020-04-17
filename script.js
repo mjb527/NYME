@@ -169,14 +169,6 @@ let stocksList;
     $('#table').empty();
     // reset chart
     $('#canvas').remove();
-    // const canvas = $('<canvas>');
-    // canvas.attr({'id': 'canvas',
-    //               'width': '300',
-    //               'height': '300'
-    //             });
-    // canvas.addClass(' outline rounded p-2');
-    // canvas.
-
     $('#canvas-div').html(`<canvas id="canvas" class="outline rounded p-2"  width="300" height="300"></canvas>`);
 
 
