@@ -277,7 +277,7 @@ let stocksList;
   function setProfile() {
 
     // if no account exists, create an account with $2500
-    if(localStorage.getItem('stonks') === null) {
+    if(localStorage.getItem('stonks') === null || localStorage.getItem('stonks') === undefined) {
       let stonks = {};
       stonks.balance = 2500;
       stonks.stonkList = {};
@@ -290,6 +290,7 @@ let stocksList;
 
   function getProfile() {
     // get list of their stocks
+    $('#profile-body').addClass('text-white');
     const stonks = JSON.parse(localStorage.getItem('stonks'));
     console.log("balance " + stonks.balance);
     userBalance = stonks.balance;
@@ -325,6 +326,8 @@ let stocksList;
         }
       }
       */
+
+      // if the object key is not 'balance'
       $.each(data, function(index, value) {
           if(index !== 'balance')
             total += parseFloat(value.worth);
@@ -335,20 +338,20 @@ let stocksList;
 
       $('#profile-body').html(`
         <div class="modal-body text-dark">
-          <div id="profile-balance" class='my-2'>Your Balance: ${userBalance}</div>
+          <div id="profile-balance" class='my-2'>Your Balance: ${userBalance.toFixed(2)}</div>
           <div id="profile-stocks" class='my-2'>Stocks:
             <ul id="profile-stocks-ul"></ul>
           </div>
-          <div id="profile-total" class='my-2'>Total: ${total}</div>
+          <div id="profile-total" class='my-2'>Total: ${total.toFixed(2)}</div>
         </div>`);
+        $('#profile-body').removeClass('text-white')
 
       // do with data what we must - add to page somewhere
       if(Object.keys(stocksList).length === 0)
-        li_stocks = 'None';
+        $("#profile-stocks-ul").append(`<li>None</li>`);
       else {
         $.each(stocksList, function(index, value) {
-          console.log("352 " + index + " " + value);
-          $("#profile-stocks-ul").append(`<li>${index} - ${value}</li>`);
+          $("#profile-stocks-ul").append(`<li>${index}: ${value}</li>`);
 
         });
       }
@@ -358,17 +361,15 @@ let stocksList;
   }
 
   function addStockValue(stocksList, wallet, stockPrices) {
-    let price;
-    console.log(stocksList);
+    let price = -1;
 
     // the json changes if we have just 1 stock, this compensates for it
     if(Object.keys(stockPrices).length === 1) price = stockPrices.price;
 
-
     const formattedData = {balance: wallet};
     // calculates the value of the number of stocks per price
     $.each(stocksList, function(index, value) {
-      if(price === null || price === undefined)
+      if(price === -1)
         price = stockPrices[index].price;
       formattedData[index] = {price: price,
                               count: value,
@@ -382,6 +383,7 @@ let stocksList;
 
   async function purchase(symbol, count) {
     count = parseInt(count);
+    symbol = symbol.toUpperCase();
     // can't be 0 or negative
     if(count < 1) {
       $('#buy-modal').modal('hide');
@@ -420,13 +422,22 @@ let stocksList;
   }
 
   function buildSelect() {
-    $('#sellDropdown').clear();
+    $('#sellDropdown').empty();
+    $('#sellDropdown').append('<option>Select Symbol</option>')
     $.each(stocksList, function(index, value) {
       $('#sellDropdown').append(`<option>${index}</option>`);
     });
   }
 
   async function sell(symbol, count) {
+    
+    if(symbol === 'Select Symbol') {
+      $('#sell-modal').modal('hide');
+      $('#error-body').html(`
+        <span>Please select a stock!</span>`);
+      $('#error-modal').modal('show');
+      return;
+    }
 
     // if count < 1, notify & return
     if(count < 1) {
@@ -436,16 +447,19 @@ let stocksList;
       $('#error-modal').modal('show');
       return;
     }
-    if(stockList[symbol] === null || stockList[symbol] === undefined) {
+    if(stocksList[symbol] === null || stocksList[symbol] === undefined) {
+      console.log(symbol);
       $('#sell-modal').modal('hide');
       $('#error-body').html(`
-        <span>The number you selected exceeds the number you own!</span>`);
+        <span>You seem to not own any of that stock!</span>`);
       $('#error-modal').modal('show');
       return;
     }
     // if there is an appropriate number of stocks specified
-    else if(stockList[symbol] > 0 && stockList[symbol] <= count) {
-      stockList[symbol] -= count;
+    else if(stocksList[symbol] > 0 && stocksList[symbol] <= count) {
+      console.log(symbol);
+      stocksList[symbol] -= count;
+      if(stocksList[symbol] === 0) delete stocksList[symbol];
       userBalance += await getValue(symbol) * count;
 
       writeToLocalStorage();

@@ -193,19 +193,23 @@
         </div>
       </div>
 
-      <div class="modal" tabindex="-1" role="dialog" id = "sell-modal">
+      <div class="modal text-dark" tabindex="-1" role="dialog" id = "sell-modal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
+              <h5 class="modal-title">Sell Stocks</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <form id="sell-form">
-                <select class="" name="" id="sellDropdown" value=""></select>
-                <select class="disabled" name="countDropdown" id="countDropdown" value=""></select>
+                <div class="col-md-6 col-sm-12">
+                  <select class="w-100" name="" id="sellDropdown" value="" placeholder="Select Stock Symbol"></select>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <select class="w-100 disabled" name="countDropdown" id="countDropdown" value=""></select>
+                </div>
               </form>
             </div>
             <div class="modal-footer">
@@ -216,7 +220,7 @@
         </div>
       </div>
 
-      <div class="modal" tabindex="-1" role="dialog" id="error-modal">
+      <div class="modal text-dark" tabindex="-1" role="dialog" id="error-modal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -233,7 +237,7 @@
         </div>
       </div>
 
-      <div class="modal" tabindex="-1" role="dialog" id="terms-modal">
+      <div class="modal text-dark" tabindex="-1" role="dialog" id="terms-modal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -251,8 +255,6 @@
           </div>
         </div>
       </div>
-
-
 
     <!-- chart.js -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
@@ -304,6 +306,7 @@
         event.preventDefault();
         const cdd = $('#countDropdown');
         const max = stocksList[$('#sellDropdown').val().trim()];
+        cdd.empty();
         for(let i = max; i > 0; i--)
           cdd.append(`<option>${i}</option>`);
 
@@ -314,9 +317,10 @@
       $('#sellButton').click(function(event) {
         event.preventDefault();
         const symbol = $('#sellDropdown').val().trim();
-        const count = $('#countDropdown').val().trim();
+        const count = $('#countDropdown').val();
         sell(symbol, count);
         $('#countDropdown').addClass('disabled');
+        $('#sell-modal').modal('hide');
       });
 
       $('#tos').click(function(event) {
