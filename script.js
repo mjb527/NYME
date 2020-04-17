@@ -1,5 +1,8 @@
 
 const api = '885e1189903c4121bb6d6fdd11a43d2d';
+const api2 = '6099a928390345399a37d357988f72ac';
+const api3 = '7e4c5400cadd4b7ba8be1cae1b6454a4';
+const api4 = '3c7e3b085d96493cb29445d7ce287c35';
 
 let userBalance = 0;
 let stocksList;
@@ -209,7 +212,7 @@ let stocksList;
     const settings = {
       "async" : true,
       "crossDomain" : true,
-      "url" : `https://api.twelvedata.com/time_series?symbol=${symbols}&outputsize=${outputsize}&interval=${interval}&apikey=${api}`,
+      "url" : `https://api.twelvedata.com/time_series?symbol=${symbols}&outputsize=${outputsize}&interval=${interval}&apikey=${api2}`,
       "method" : "GET"
     }
 
@@ -289,14 +292,15 @@ let stocksList;
   function getProfile() {
     // get list of their stocks
     const stonks = JSON.parse(localStorage.getItem('stonks'));
+    console.log("balance " + stonks.balance);
     userBalance = stonks.balance;
     stocksList = stonks.stonkList;
     // TODO set total
-    const total = 0;
+    let total = 0;
     const keys = Object.keys(stocksList).toString();
 
     // query the list of the stock symbols
-    const url = `https://api.twelvedata.com/price?symbol=${keys}&apikey=${api}`;
+    const url = `https://api.twelvedata.com/price?symbol=${keys}&apikey=${api3}`;
 
     const settings = {
       "async" : true,
@@ -322,47 +326,63 @@ let stocksList;
         }
       }
       */
+      $.each(data, function(index, value) {
+          if(index !== 'balance')
+            total += parseFloat(value.worth);
+        });
 
-      // do with data what we must - add to page somewhere
-      let li_stocks = $('<ul>');
-      if(stocksList.firstChild === undefined || stocksList.firstChild === null)
-        li_stocks = 'None';
-      else {
-        for(let i = 0; i < stocksList.length; i++) {
-          li_stocks.append(`<li>${stocksList[i]}</li>`);
-        }
-      }
-      console.log(userBalance);
-      console.log(li_stocks);
-      console.log(total);
+      total += parseInt(data.balance);
+      console.log(stocksList);
 
       $('#profile-body').html(`
         <div class="modal-body text-dark">
-          <div class='my-2'>Your Balance: ${userBalance}</div>
-          <div class='my-2'>Stocks:</div>
-          ${li_stocks}
-          <div class='my-2'>Total: ${total}</div>
+          <div id="profile-balance" class='my-2'>Your Balance: ${userBalance}</div>
+          <div id="profile-stocks" class='my-2'>Stocks:
+            <ul id="profile-stocks-ul"></ul>
+          </div>
+          <div id="profile-total" class='my-2'>Total: ${total}</div>
         </div>`);
 
-    });
+      // do with data what we must - add to page somewhere
+      if(Object.keys(stocksList).length === 0)
+        li_stocks = 'None';
+      else {
+        $.each(stocksList, function(index, value) {
+          console.log("352 " + index + " " + value);
+          $("#profile-stocks-ul").append(`<li>${index} - ${value}</li>`);
 
+        });
+      }
+
+    });
 
   }
 
   function addStockValue(stocksList, wallet, stockPrices) {
+    let price;
+    console.log(stocksList);
+
+    // the json changes if we have just 1 stock, this compensates for it
+    if(Object.keys(stockPrices).length === 1) price = stockPrices.price;
+
+
     const formattedData = {balance: wallet};
     // calculates the value of the number of stocks per price
     $.each(stocksList, function(index, value) {
-      formattedData[index] = {price: stockPrices[index].price,
+      if(price === null || price === undefined)
+        price = stockPrices[index].price;
+      formattedData[index] = {price: price,
                               count: value,
-                              worth: value * parseFloat(stockPrices[index].price)}
-      formattedData.balance += value * parseFloat(stockPrices[index].price);
+                              worth: value * price }
+      console.log(formattedData);
+      formattedData.balance += value * price;
     });
     formattedData.balance = formattedData.balance.toFixed(2);
     return formattedData;
   }
 
-  function purchase(symbol, count) {
+  async function purchase(symbol, count) {
+    count = parseInt(count);
     // can't be 0 or negative
     if(count < 1) {
       // TODO create modal to alert user they need at least 1 stock
@@ -370,7 +390,7 @@ let stocksList;
     }
 
     // call api to get the current stock price for that symbol
-    const total = getValue(symbol.trim()) * count;
+    const total = await getValue(symbol) * count;
 
     // check their available funds, if the price exceeds their amount, must alert user and return
     if(total > userBalance) {
@@ -380,19 +400,22 @@ let stocksList;
     }
 
     userBalance -= total;
+    console.log(userBalance);
 
     // adjust the count if they already have some of those stocks
+    console.log(symbol + " " + count);
+    console.log(stocksList);
     if(stocksList[symbol] === undefined || stocksList[symbol] === null)
-      stocksList[symbol] += count;
+      stocksList[symbol] = count;
     // add the stock to the list if it does not exist in the list
     else
-      stocksList[symbol] = count;
+      stocksList[symbol] += count;
 
     writeToLocalStorage();
 
   }
 
-  function sell(symbol, count) {
+  async function sell(symbol, count) {
     // if count < 1, notify & return
     if(count < 1) {
       // TODO: notify the user
@@ -405,7 +428,8 @@ let stocksList;
     // if there is an appropriate number of stocks specified
     else if(stockList[symbol] > 0 && stockList[symbol] <= count) {
       stockList[symbol] -= count;
-      userBalance += getValue(symbol) * count;
+      userBalance += await getValue(symbol) * count;
+
       writeToLocalStorage();
     }
     // if there is an inappropriate number of stocks ( < 0 or > available)
@@ -416,6 +440,8 @@ let stocksList;
   }
 
   function writeToLocalStorage() {
+    console.log(userBalance);
+    console.log(stocksList);
     localStorage.setItem('stonks', JSON.stringify({'balance' : userBalance,
         'stonkList' : stocksList}));
   }
@@ -423,7 +449,7 @@ let stocksList;
   // return the current value of a stock
   function getValue(symbol) {
 
-    const url = `https://api.twelvedata.com/price?symbol=${symbol}&apikey=${api}`;
+    const url = `https://api.twelvedata.com/price?symbol=${symbol}&apikey=${api4}`;
 
     const settings = {
       "async" : true,
@@ -432,11 +458,16 @@ let stocksList;
       "method" : "GET"
     }
 
-    $.ajax(settings).then(function(response) {
-
-      return parseFloat(response.price);
-
-    });
+    return new Promise(resolve => {
+        $.ajax(settings).then(function(response) {
+          console.log('getValue');
+          console.log(response);
+          console.log(parseFloat(response.price));
+          resolve(parseFloat(response.price));
+    } )});
+    // console.log(result);
+    //
+    // return result;
 
   }
 
