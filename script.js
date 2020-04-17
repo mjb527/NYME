@@ -288,7 +288,6 @@ let stocksList;
     }
   }
 
-  // TODO on button click, not on load
   function getProfile() {
     // get list of their stocks
     const stonks = JSON.parse(localStorage.getItem('stonks'));
@@ -385,7 +384,10 @@ let stocksList;
     count = parseInt(count);
     // can't be 0 or negative
     if(count < 1) {
-      // TODO create modal to alert user they need at least 1 stock
+      $('#buy-modal').modal('hide');
+      $('#error-body').html(`
+        <span>Be sure you're trying to buy at least one stock!</span>`);
+      $('#error-modal').modal('show');
       return;
     }
 
@@ -394,8 +396,10 @@ let stocksList;
 
     // check their available funds, if the price exceeds their amount, must alert user and return
     if(total > userBalance) {
-      // TODO create modal and alert user they're broke
-
+      $('#buy-modal').modal('hide');
+      $('#error-body').html(`
+        <span>The cost of your purchase exceeded your funds!</span>`);
+      $('#error-modal').modal('show');
       return;
     }
 
@@ -415,14 +419,28 @@ let stocksList;
 
   }
 
+  function buildSelect() {
+    $('#sellDropdown').clear();
+    $.each(stocksList, function(index, value) {
+      $('#sellDropdown').append(`<option>${index}</option>`);
+    });
+  }
+
   async function sell(symbol, count) {
+
     // if count < 1, notify & return
     if(count < 1) {
-      // TODO: notify the user
+      $('#sell-modal').modal('hide');
+      $('#error-body').html(`
+        <span>Please select a positive number!</span>`);
+      $('#error-modal').modal('show');
       return;
     }
     if(stockList[symbol] === null || stockList[symbol] === undefined) {
-      // TODO: notify the user
+      $('#sell-modal').modal('hide');
+      $('#error-body').html(`
+        <span>The number you selected exceeds the number you own!</span>`);
+      $('#error-modal').modal('show');
       return;
     }
     // if there is an appropriate number of stocks specified
@@ -432,10 +450,14 @@ let stocksList;
 
       writeToLocalStorage();
     }
-    // if there is an inappropriate number of stocks ( < 0 or > available)
-    else
-      // TODO: notify the user
+    // if the amount specified > available)
+    else {
+      $('#sell-modal').modal('hide');
+      $('#error-body').html(`
+        <span>The number you selected exceeds the number you own!</span>`);
+      $('#error-modal').modal('show');
       return;
+    }
 
   }
 
@@ -465,9 +487,6 @@ let stocksList;
           console.log(parseFloat(response.price));
           resolve(parseFloat(response.price));
     } )});
-    // console.log(result);
-    //
-    // return result;
 
   }
 

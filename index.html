@@ -15,7 +15,7 @@
 
 <body>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        By using this website you agree to the <strong>Terms of Service</strong>: <a href="#">New York Mock Exchange</a>
+        By using this website you agree to the <strong>Terms of Service</strong>: <a href="#" id="tos">New York Mock Exchange</a>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -37,7 +37,7 @@
                     <a class="nav-link" data-toggle="modal" data-target="#buy-modal" href="#">Buy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#sell-modal" href="#">Sell</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#sell-modal" id="openSell" href="#">Sell</a>
                 </li>
                 </a>
 
@@ -203,18 +203,54 @@
               </button>
             </div>
             <div class="modal-body">
-              <form>
-
+              <form id="sell-form">
+                <select class="" name="" id="sellDropdown" value=""></select>
+                <select class="disabled" name="countDropdown" id="countDropdown" value=""></select>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button id="sellButton" type="button" class="btn btn-primary">Sell Stocks</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="modal" tabindex="-1" role="dialog" id="error-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Something went wrong :(</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="error-body"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" tabindex="-1" role="dialog" id="terms-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Terms of Service</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="error-body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
@@ -256,6 +292,36 @@
         const symbol = $('#buyInput').val().trim();
         const count = $('#buyCount').val().trim();
         purchase(symbol, parseInt(count));
+      });
+
+      $('#openSell').click(function(event) {
+        event.preventDefault();
+        buildSelect();
+      });
+
+      // dynamically populate the list & make available for changing
+      $('#sellDropdown').change(function(event) {
+        event.preventDefault();
+        const cdd = $('#countDropdown');
+        const max = stocksList[$('#sellDropdown').val().trim()];
+        for(let i = max; i > 0; i--)
+          cdd.append(`<option>${i}</option>`);
+
+        cdd.removeClass('disabled');
+
+      });
+
+      $('#sellButton').click(function(event) {
+        event.preventDefault();
+        const symbol = $('#sellDropdown').val().trim();
+        const count = $('#countDropdown').val().trim();
+        sell(symbol, count);
+        $('#countDropdown').addClass('disabled');
+      });
+
+      $('#tos').click(function(event) {
+        event.preventDefault();
+        $('#terms-modal').modal('show');
       });
 
 
