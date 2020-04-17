@@ -1,4 +1,7 @@
 
+// Author: Matthew Batko
+// https://github.com/mjb527
+
 const api = '885e1189903c4121bb6d6fdd11a43d2d';
 const api2 = '6099a928390345399a37d357988f72ac';
 const api3 = '7e4c5400cadd4b7ba8be1cae1b6454a4';
@@ -430,7 +433,7 @@ let stocksList;
   }
 
   async function sell(symbol, count) {
-    
+
     if(symbol === 'Select Symbol') {
       $('#sell-modal').modal('hide');
       $('#error-body').html(`
