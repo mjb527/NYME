@@ -22,7 +22,7 @@
     </div>
 
     <nav class="navbar navbar-light bg-light" id="nav">
-        <a class="navbar-brand"><i class="fas fa-chart-line"></i> New York Mock Exchange</a>
+        <a class="navbar-brand"><span class="align-text-top">New York Mock Exchange</span><i class="fas fa-chart-line align-bottom pl-2"></i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -43,16 +43,29 @@
 
     </nav>
 
-    <div class="mb-5" id="radio-buttons">
+    <div class="mb-5" id="radio-buttons" alignment="center">
         <form class="form-inline mx-4" alignment="center" id="searchForm">
             <div class="form-inline" alignment="center">
-                <input id="input" data-toggle= "tooltip" data-placement="bottom" title="Enter with NO spaces, only commas to separate" class="form-control mr-sm-2" type="search" placeholder="Example: AAPL,IBM"
+              <div class="col-auto">
+
+                <div class="input-group mt-2">
+                  <input id=input type="text" class="form-control" title="Enter with NO spaces, only commas to separate" type="search" placeholder="Example: AAPL,IBM">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="button">Search</button>
+                  </div>
+                </div>
+
+
+                <!-- <input id="input" data-toggle= "tooltip" data-placement="bottom" title="Enter with NO spaces, only commas to separate" class="form-control w-75" type="search" placeholder="Example: AAPL,IBM"
                     aria-label="Search">
 
-                <button class="btn btn-outline-success mr-sm-2" type="submit"><i class="fas fa-search"></i></button>
+                <button class="btn btn-outline-success mr-sm-2" type="submit"></button> -->
+
+
+              </div>
                 <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneDay" value="oneDay"
+                        <input class="form-check-input" type="radio" name="exampleRadios1" id="oneDay" value="oneDay"
                             checked>
                         <label class="radio-inline " for="exampleRadios1">
                             One Day
@@ -62,7 +75,7 @@
 
                 <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneWeek" value="oneWeek">
+                        <input class="form-check-input" type="radio" name="exampleRadios2" id="oneWeek" value="oneWeek">
                         <label class="radio-inline" for="exampleRadios2">
                             One Week
                         </label>
@@ -71,7 +84,7 @@
 
                 <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="twoWeek" value="twoWeek">
+                        <input class="form-check-input" type="radio" name="exampleRadios3" id="twoWeek" value="twoWeek">
                         <label class="radio-inline" for="exampleRadios3">
                             Two Week
                         </label>
@@ -80,7 +93,7 @@
 
                 <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneMonth"
+                        <input class="form-check-input" type="radio" name="exampleRadios4" id="oneMonth"
                             value="oneMonth">
                         <label class="radio-inline" for="exampleRadios4">
                             One Month
@@ -90,7 +103,7 @@
 
                 <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="threeMonth"
+                        <input class="form-check-input" type="radio" name="exampleRadios6" id="threeMonth"
                             value="threeMonth">
                         <label class="radio-line" for="exampleRadios6">
                             Three Month
@@ -100,7 +113,7 @@
 
                 <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="sixMonth"
+                        <input class="form-check-input" type="radio" name="exampleRadios7" id="sixMonth"
                             value="sixMonth">
                         <label class="radio-line" for="exampleRadios7">
                             Six Month
@@ -110,12 +123,12 @@
 
                 <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneYear" value="oneYear">
+                        <input class="form-check-input" type="radio" name="exampleRadios8" id="oneYear" value="oneYear">
                         <label class="radio-line" for="exampleRadios8">
                             52 Week
                         </label>
                     </div>
-
+              </div>
         </form>
     </div>
 

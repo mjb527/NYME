@@ -4,6 +4,12 @@ body {
     background-repeat: no-repeat;
     color: white;
     font-weight: bold;
+    overflow-x: scroll;
+    max-width: 100%;
+}
+
+body * {
+  overflow-x: scroll;
 }
 
 #nav {
@@ -12,17 +18,15 @@ body {
 
 .navbar-brand {
     font-family: 'Abril Fatface', cursive;
+}
 
+.fa {
+  font-size: 16px;
 }
 
 .btn-outline-success {
     border-color: white;
     color: white;
-}
-
-.fa-search {
-    color: white;
-
 }
 
 #table-container {
