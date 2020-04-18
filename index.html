@@ -9,14 +9,13 @@
         href="https://cdn1.iconfinder.com/data/icons/business-finance-line-3/100/Finance_Upward_Trend-512.png">
     <title>New York Mock Exchange</title>
     <link rel="stylesheet" href="frameworks/bootstrap.css">
-    <script src="https://kit.fontawesome.com/08e270e5ef.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     </head>
 
 <body>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        By using this website you agree to the <strong>Terms of Service</strong>: <a href="#">New York Mock Exchange</a>
+        By using this website you agree to the <strong>Terms of Service</strong>: <a href="#" id="tos">New York Mock Exchange</a>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -31,23 +30,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#profile-modal" href="#">Profile <span
+                    <a id="openProfile" class="nav-link" data-toggle="modal" data-target="#profile-modal" href="#">Profile <span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="modal" data-target="#buy-modal" href="#">Buy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#sell-modal" href="#">Sell</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#sell-modal" id="openSell" href="#">Sell</a>
                 </li>
                 </a>
 
     </nav>
 
-    <div id="radio-buttons">
-        <form class="form-inline mx-4" alignment ="center">
-            <div class="form-inline" alignment ="center">
-                <input id = "inTool" data-toggle= "tooltip" data-placement="bottom" title="Enter with NO spaces, only commas to separate" class="form-control mr-sm-2" type="search" placeholder="AAPL,IBM"
+    <div class="mb-5" id="radio-buttons">
+        <form class="form-inline mx-4" alignment="center" id="searchForm">
+            <div class="form-inline" alignment="center">
+                <input id="input" data-toggle= "tooltip" data-placement="bottom" title="Enter with NO spaces, only commas to separate" class="form-control mr-sm-2" type="search" placeholder="Example: AAPL,IBM"
                     aria-label="Search">
 
                 <button class="btn btn-outline-success mr-sm-2" type="submit"><i class="fas fa-search"></i></button>
@@ -117,77 +116,22 @@
                         </label>
                     </div>
 
-
-
         </form>
     </div>
-    <canvas id = "canvas" > </canvas>
-    <div class="container" id = "chart-container" alignment = "center">
-        <div class="row">
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-        </div>
-    </div>
 
-    <div class="table-responsive" id= "table-container">
-        <table class="table table-hover table-dark " alignment = "center">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Current</th>
-                        <th scope="col">Open</th>
-                        <th scope="col">Close</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>S&P 500</a></td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>DOW</a></td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>NASDAQ</a></td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                    </tr>
-                </tbody>
-            </table>
-        </table>
+    <div class="container" id="chart-container" alignment="center">
+      <div id="canvas-div" class="pt-4" alignment="center">
+        <canvas id="canvas" class="outline rounded p-2"  width="300" height="300"></canvas>
+      </div>
+
+    <div class="table-responsive my-5 rounded" id="table-container">
+        <table id="table" class="table table-hover table-dark rounded" alignment="center"></table>
     </div>
+  </div>
+
     <footer>&copy 2020 New York Mock Exchange </footer>
 
-    <div class="modal" tabindex="-1" role="dialog" id = "profile-modal">
+    <div class="modal text-dark" tabindex="-1" role="dialog" id="profile-modal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -196,18 +140,17 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body" id = "profile-body">
-              <p></p>
+            <div class="modal-body" id="profile-body">
+
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
-      </div>    
+      </div>
 
-      <div class="modal" tabindex="-1" role="dialog" id = "profile-modal">
+      <div class="modal" tabindex="-1" role="dialog" id="profile-modal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -216,72 +159,177 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body" id = "profile-body">
-              <p></p>
+            <div class="modal-body" id="profile-body">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>    
-
-      <div class="modal" tabindex="-1" role="dialog" id = "buy-modal">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="modal" tabindex="-1" role="dialog" id = "sell-modal">
+      <div class="modal text-dark" tabindex="-1" role="dialog" id="buy-modal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
+              <h5 class="modal-title">Purchase Stocks</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <form>
-                  
+                <input type="text" id="buyInput" name="buyInput" placeholder="Stock Symbol">
+                <input type="number" min="1" id="buyCount" name="buyCount" placeholder="1">
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" id="buyButton" class="btn btn-primary" data-dismiss="modal">Purchase</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="modal text-dark" tabindex="-1" role="dialog" id = "sell-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Sell Stocks</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="sell-form">
+                <div class="col-md-6 col-sm-12">
+                  <select class="w-100" name="" id="sellDropdown" value="" placeholder="Select Stock Symbol"></select>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <select class="w-100 disabled" name="countDropdown" id="countDropdown" value=""></select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button id="sellButton" type="button" class="btn btn-primary">Sell Stocks</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal text-dark" tabindex="-1" role="dialog" id="error-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Something went wrong :(</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="error-body"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal text-dark" tabindex="-1" role="dialog" id="terms-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Terms of Service</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="error-body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- chart.js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/08e270e5ef.js" crossorigin="anonymous"></script>
+
+    <!-- custom js -->
+    <script type="text/javascript" src="script.js"></script>
+
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+          getIndexes();
+          setProfile();
+          getProfile();
+      });
+
+      // when they click search on the horizontal form at the top
+      $('#searchForm').submit(function(event) {
+        event.preventDefault();
+        getQuotes();
+      });
+
+      // populate profile on click
+      $('#openProfile').click(function(event) {
+        event.preventDefault();
+        getProfile();
+      });
+
+      $('#buyButton').click(function(event) {
+        event.preventDefault();
+        const symbol = $('#buyInput').val().trim();
+        const count = $('#buyCount').val().trim();
+        purchase(symbol, parseInt(count));
+      });
+
+      $('#openSell').click(function(event) {
+        event.preventDefault();
+        buildSelect();
+      });
+
+      // dynamically populate the list & make available for changing
+      $('#sellDropdown').change(function(event) {
+        event.preventDefault();
+        const cdd = $('#countDropdown');
+        const max = stocksList[$('#sellDropdown').val().trim()];
+        cdd.empty();
+        for(let i = max; i > 0; i--)
+          cdd.append(`<option>${i}</option>`);
+
+        cdd.removeClass('disabled');
+
+      });
+
+      $('#sellButton').click(function(event) {
+        event.preventDefault();
+        const symbol = $('#sellDropdown').val().trim();
+        const count = $('#countDropdown').val();
+        sell(symbol, count);
+        $('#countDropdown').addClass('disabled');
+        $('#sell-modal').modal('hide');
+      });
+
+      $('#tos').click(function(event) {
+        event.preventDefault();
+        $('#terms-modal').modal('show');
+      });
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+
+    </script>
+
 </body>
 
 </html>
