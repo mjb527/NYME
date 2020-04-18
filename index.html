@@ -1,175 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon"
-    href="https://cdn1.iconfinder.com/data/icons/business-finance-line-3/100/Finance_Upward_Trend-512.png">
+        href="https://cdn1.iconfinder.com/data/icons/business-finance-line-3/100/Finance_Upward_Trend-512.png">
     <title>New York Mock Exchange</title>
     <link rel="stylesheet" href="frameworks/bootstrap.css">
-    <script src="https://kit.fontawesome.com/08e270e5ef.js" crossorigin="anonymous"></script>
-</head>
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    </head>
+
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand"><i class="fas fa-chart-line"></i> New York Mock Exchange</a>
-    </nav>
-    <br>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        By using this website you agree to the <strong>Terms of Service</strong>: <a href="#">New York Mock Exchange</a>
+        By using this website you agree to the <strong>Terms of Service</strong>: <a href="#" id="tos">New York Mock Exchange</a>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-            <div class="col">x</div>
-        </div>
-    </div>
 
-    <form class="form-inline">
-        <div class="container">
-            <div class="row">
-                <input class="form-control mr-sm-2" type="search" placeholder="enter as AAPL,IBM (no spaces)"
+    <nav class="navbar navbar-light bg-light" id="nav">
+        <a class="navbar-brand"><span class="align-text-top">New York Mock Exchange</span><i class="fas fa-chart-line align-bottom pl-2"></i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a id="openProfile" class="nav-link" data-toggle="modal" data-target="#profile-modal" href="#">Profile <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#buy-modal" href="#">Buy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#sell-modal" id="openSell" href="#">Sell</a>
+                </li>
+                </a>
+
+    </nav>
+
+    <div class="mb-5" id="radio-buttons" alignment="center">
+        <form class="form-inline mx-4" alignment="center" id="searchForm">
+            <div class="form-inline" alignment="center">
+              <div class="col-auto">
+
+                <div class="input-group mt-2">
+                  <input id=input type="text" class="form-control" title="Enter with NO spaces, only commas to separate" type="search" placeholder="Example: AAPL,IBM">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="button">Search</button>
+                  </div>
+                </div>
+
+
+                <!-- <input id="input" data-toggle= "tooltip" data-placement="bottom" title="Enter with NO spaces, only commas to separate" class="form-control w-75" type="search" placeholder="Example: AAPL,IBM"
                     aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
-                        class="fas fa-search"></i></button>
-                <div class="col">
+
+                <button class="btn btn-outline-success mr-sm-2" type="submit"></button> -->
+
+
+              </div>
+                <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneDay"
-                            value="oneDay" checked>
-                        <label class="form-check-label" for="exampleRadios1">
+                        <input class="form-check-input" type="radio" name="exampleRadios1" id="oneDay" value="oneDay"
+                            checked>
+                        <label class="radio-inline " for="exampleRadios1">
                             One Day
                         </label>
                     </div>
                 </div>
-                <div class="col">
+
+                <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneWeek"
-                            value="oneWeek">
-                        <label class="form-check-label" for="exampleRadios2">
+                        <input class="form-check-input" type="radio" name="exampleRadios2" id="oneWeek" value="oneWeek">
+                        <label class="radio-inline" for="exampleRadios2">
                             One Week
                         </label>
                     </div>
                 </div>
-                <div class="col">
+
+                <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="twoWeek" value="twoWeek">
-                        <label class="form-check-label" for="exampleRadios3">
+                        <input class="form-check-input" type="radio" name="exampleRadios3" id="twoWeek" value="twoWeek">
+                        <label class="radio-inline" for="exampleRadios3">
                             Two Week
                         </label>
                     </div>
                 </div>
-                <div class="col">
+
+                <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneMonth"
+                        <input class="form-check-input" type="radio" name="exampleRadios4" id="oneMonth"
                             value="oneMonth">
-                        <label class="form-check-label" for="exampleRadios4">
+                        <label class="radio-inline" for="exampleRadios4">
                             One Month
                         </label>
                     </div>
                 </div>
-                <div class="col">
+
+                <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="threeMonth" value="threeMonth">
-                        <label class="form-check-label" for="exampleRadios6">
+                        <input class="form-check-input" type="radio" name="exampleRadios6" id="threeMonth"
+                            value="threeMonth">
+                        <label class="radio-line" for="exampleRadios6">
                             Three Month
                         </label>
                     </div>
                 </div>
-                <div class="col">
+
+                <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="sixMonth" value="sixMonth">
-                        <label class="form-check-label" for="exampleRadios7">
+                        <input class="form-check-input" type="radio" name="exampleRadios7" id="sixMonth"
+                            value="sixMonth">
+                        <label class="radio-line" for="exampleRadios7">
                             Six Month
                         </label>
                     </div>
                 </div>
-                <div class="col">
+
+                <div class="col-auto">
                     <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="oneYear" value="oneYear">
-                        <label class="form-check-label" for="exampleRadios8">
+                        <input class="form-check-input" type="radio" name="exampleRadios8" id="oneYear" value="oneYear">
+                        <label class="radio-line" for="exampleRadios8">
                             52 Week
                         </label>
                     </div>
-                </div>
-            </div>
-        </div>
-    </form>
-
-    <div class="table-responsive">
-        <table class="table">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Current</th>
-                        <th scope="col">Open</th>
-                        <th scope="col">Close</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>S&P 500</a></td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>DOW</a></td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>NASDAQ</a></td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                    </tr>
-                </tbody>
-            </table>
-        </table>
+              </div>
+        </form>
     </div>
 
-    <footer>&copy 2020 New York Mock Exchange</footer>
-    
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    <div class="container" id="chart-container" alignment="center">
+      <div id="canvas-div" class="pt-4" alignment="center">
+        <canvas id="canvas" class="outline rounded p-2"  width="300" height="300"></canvas>
+      </div>
+
+    <div class="table-responsive my-5 rounded" id="table-container">
+        <table id="table" class="table table-hover table-dark rounded" alignment="center"></table>
+    </div>
+  </div>
+
+    <footer>&copy 2020 New York Mock Exchange </footer>
+
+    <div class="modal text-dark" tabindex="-1" role="dialog" id="profile-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Profile</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="profile-body">
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" tabindex="-1" role="dialog" id="profile-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Profile</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="profile-body">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal text-dark" tabindex="-1" role="dialog" id="buy-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Purchase Stocks</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <input type="text" id="buyInput" name="buyInput" placeholder="Stock Symbol">
+                <input type="number" min="1" id="buyCount" name="buyCount" placeholder="1">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="buyButton" class="btn btn-primary" data-dismiss="modal">Purchase</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal text-dark" tabindex="-1" role="dialog" id = "sell-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Sell Stocks</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="sell-form">
+                <div class="col-md-6 col-sm-12">
+                  <select class="w-100" name="" id="sellDropdown" value="" placeholder="Select Stock Symbol"></select>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <select class="w-100 disabled" name="countDropdown" id="countDropdown" value=""></select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button id="sellButton" type="button" class="btn btn-primary">Sell Stocks</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal text-dark" tabindex="-1" role="dialog" id="error-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Something went wrong :(</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="error-body"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal text-dark" tabindex="-1" role="dialog" id="terms-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Terms of Service</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="error-body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- chart.js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/08e270e5ef.js" crossorigin="anonymous"></script>
+
+    <!-- custom js -->
+    <script type="text/javascript" src="script.js"></script>
+
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+          getIndexes();
+          setProfile();
+          getProfile();
+      });
+
+      // when they click search on the horizontal form at the top
+      $('#searchForm').submit(function(event) {
+        event.preventDefault();
+        getQuotes();
+      });
+
+      // populate profile on click
+      $('#openProfile').click(function(event) {
+        event.preventDefault();
+        getProfile();
+      });
+
+      $('#buyButton').click(function(event) {
+        event.preventDefault();
+        const symbol = $('#buyInput').val().trim();
+        const count = $('#buyCount').val().trim();
+        purchase(symbol, parseInt(count));
+      });
+
+      $('#openSell').click(function(event) {
+        event.preventDefault();
+        buildSelect();
+      });
+
+      // dynamically populate the list & make available for changing
+      $('#sellDropdown').change(function(event) {
+        event.preventDefault();
+        const cdd = $('#countDropdown');
+        const max = stocksList[$('#sellDropdown').val().trim()];
+        cdd.empty();
+        for(let i = max; i > 0; i--)
+          cdd.append(`<option>${i}</option>`);
+
+        cdd.removeClass('disabled');
+
+      });
+
+      $('#sellButton').click(function(event) {
+        event.preventDefault();
+        const symbol = $('#sellDropdown').val().trim();
+        const count = $('#countDropdown').val();
+        sell(symbol, count);
+        $('#countDropdown').addClass('disabled');
+        $('#sell-modal').modal('hide');
+      });
+
+      $('#tos').click(function(event) {
+        event.preventDefault();
+        $('#terms-modal').modal('show');
+      });
+
+
+
+    </script>
+
 </body>
+
 </html>
