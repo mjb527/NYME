@@ -43,11 +43,87 @@
 
     </nav>
 
-    <div class="mb-5" id="radio-buttons" alignment="center">
-        <form class="form-inline mx-4" alignment="center" id="searchForm">
-            <div class="form-inline" alignment="center">
-              <div class="col-auto">
 
+
+    <div class="mb-5" id="radio-buttons" alignment="center">
+
+
+      <form class="form-inline">
+          <div class="container">
+              <div class="row">
+                  <input class="form-control" id="input" type="search" placeholder="Example: AAPL,IBM"
+                      aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit" id="searchButton">Search</button>
+                  <div class="col-auto">
+                      <div class="form-check disabled">
+                          <input class="form-check-input" type="radio" name="exampleRadios1" id="oneDay"
+                              value="oneDay" checked>
+                          <label class="form-check-label" for="exampleRadios1">
+                              One Day
+                          </label>
+                      </div>
+                  </div>
+                  <div class="col-auto">
+                      <div class="form-check disabled">
+                          <input class="form-check-input" type="radio" name="exampleRadios2" id="oneWeek"
+                              value="oneWeek">
+                          <label class="form-check-label" for="exampleRadios2">
+                              One Week
+                          </label>
+                      </div>
+                  </div>
+                  <div class="col-auto">
+                      <div class="form-check disabled">
+                          <input class="form-check-input" type="radio" name="exampleRadios3" id="twoWeek" value="twoWeek">
+                          <label class="form-check-label" for="exampleRadios3">
+                              Two Week
+                          </label>
+                      </div>
+                  </div>
+                  <div class="col-auto">
+                      <div class="form-check disabled">
+                          <input class="form-check-input" type="radio" name="exampleRadios4" id="oneMonth"
+                              value="oneMonth">
+                          <label class="form-check-label" for="exampleRadios4">
+                              One Month
+                          </label>
+                      </div>
+                  </div>
+                  <div class="col-auto">
+                      <div class="form-check disabled">
+                          <input class="form-check-input" type="radio" name="exampleRadios5" id="threeMonth" value="threeMonth">
+                          <label class="form-check-label" for="exampleRadios6">
+                              Three Month
+                          </label>
+                      </div>
+                  </div>
+                  <div class="col-auto">
+                      <div class="form-check disabled">
+                          <input class="form-check-input" type="radio" name="exampleRadios6" id="sixMonth" value="sixMonth">
+                          <label class="form-check-label" for="exampleRadios7">
+                              Six Month
+                          </label>
+                      </div>
+                  </div>
+                  <div class="col-auto">
+                      <div class="form-check disabled">
+                          <input class="form-check-input" type="radio" name="exampleRadios" id="oneYear" value="oneYear">
+                          <label class="form-check-label" for="exampleRadios8">
+                              52 Week
+                          </label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </form>
+
+
+
+
+      <!-- =============================== -->
+
+
+        <!-- <form class="form-inline mx-4" alignment="center" id="searchForm">
                 <div class="input-group mt-2">
                   <input id=input type="text" class="form-control" title="Enter with NO spaces, only commas to separate" type="search" placeholder="Example: AAPL,IBM">
                   <div class="input-group-append">
@@ -60,14 +136,11 @@
                     aria-label="Search">
 
                 <button class="btn btn-outline-success mr-sm-2" type="submit"></button> -->
-
-
-              </div>
-                <div class="col-auto">
+              <!--  <div class="col-auto">
                     <div class="form-check disabled">
                         <input class="form-check-input" type="radio" name="exampleRadios1" id="oneDay" value="oneDay"
                             checked>
-                        <label class="radio-inline " for="exampleRadios1">
+                        <label class="radio-inline " for="exampleRadios">
                             One Day
                         </label>
                     </div>
@@ -76,7 +149,7 @@
                 <div class="col-auto">
                     <div class="form-check disabled">
                         <input class="form-check-input" type="radio" name="exampleRadios2" id="oneWeek" value="oneWeek">
-                        <label class="radio-inline" for="exampleRadios2">
+                        <label class="radio-inline" for="exampleRadios">
                             One Week
                         </label>
                     </div>
@@ -85,7 +158,7 @@
                 <div class="col-auto">
                     <div class="form-check disabled">
                         <input class="form-check-input" type="radio" name="exampleRadios3" id="twoWeek" value="twoWeek">
-                        <label class="radio-inline" for="exampleRadios3">
+                        <label class="radio-inline" for="exampleRadios">
                             Two Week
                         </label>
                     </div>
@@ -95,7 +168,7 @@
                     <div class="form-check disabled">
                         <input class="form-check-input" type="radio" name="exampleRadios4" id="oneMonth"
                             value="oneMonth">
-                        <label class="radio-inline" for="exampleRadios4">
+                        <label class="radio-inline" for="exampleRadios">
                             One Month
                         </label>
                     </div>
@@ -105,7 +178,7 @@
                     <div class="form-check disabled">
                         <input class="form-check-input" type="radio" name="exampleRadios6" id="threeMonth"
                             value="threeMonth">
-                        <label class="radio-line" for="exampleRadios6">
+                        <label class="radio-line" for="exampleRadios">
                             Three Month
                         </label>
                     </div>
@@ -115,7 +188,7 @@
                     <div class="form-check disabled">
                         <input class="form-check-input" type="radio" name="exampleRadios7" id="sixMonth"
                             value="sixMonth">
-                        <label class="radio-line" for="exampleRadios7">
+                        <label class="radio-line" for="exampleRadios">
                             Six Month
                         </label>
                     </div>
@@ -124,12 +197,13 @@
                 <div class="col-auto">
                     <div class="form-check disabled">
                         <input class="form-check-input" type="radio" name="exampleRadios8" id="oneYear" value="oneYear">
-                        <label class="radio-line" for="exampleRadios8">
+                        <label class="radio-line" for="exampleRadios">
                             52 Week
                         </label>
                     </div>
               </div>
-        </form>
+            </div>
+        </form> -->
     </div>
 
     <div class="container" id="chart-container" alignment="center">
@@ -289,8 +363,9 @@
       });
 
       // when they click search on the horizontal form at the top
-      $('#searchForm').submit(function(event) {
+      $('#searchButton').click(function(event) {
         event.preventDefault();
+        console.log('hey');
         getQuotes();
       });
 

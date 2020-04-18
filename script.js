@@ -180,28 +180,33 @@ let stocksList;
     let outputsize = '';
     let interval = '';
 
+    const checked = $("form input[type='radio']:checked").val();
+    console.log(checked);
+
     // 1 day, hour by hour, 3 days, every 3 hours, 1 week, daily, 1 month daily
-    if($("#oneDay").prop("checked", true)) {
+    if(checked === 'oneDay') {
+      console.log('checked');
         outputsize = '24';
         interval = '1h'
     }
-    else if($("#oneWeek").prop("checked", true)) {
+    else if(checked === 'oneWeek') {
       outputsize = '7';
       interval = '1day';
     }
-    else if($("#twoWeek").prop("checked", true)) {
+    else if(checked === "twoWeek") {
       outputsize = '14';
       interval = '1day';
     }
-    else if($("#oneMonth").prop("checked", true)) {
+    else if(checked === "oneMonth") {
+      console.log("one month");
       outputsize = '30';
       interval = '1day';
     }
-    else if($("#threeMonth").prop("checked", true)) {
+    else if(checked === "#threeMonth") {
       outputsize = '12';
       interval = '1week';
     }
-    else if($("#oneYear").prop("checked", true)) {
+    else if(checked === "#oneYear") {
       outputsize = '52';
       interval = '1week';
     }
