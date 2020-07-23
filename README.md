@@ -20,4 +20,13 @@ https://twelvedata.com/docs#getting-started
 https://www.chartjs.org/docs/latest/
 
 
+## Techologies
+
+* HTML5
+* JavaScript
+* jQuery
+* CSS
+* Bootstrap 4
+
+
 ![NYME Screenshot](/NYME-screenshot.png)
