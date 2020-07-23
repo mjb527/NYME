@@ -18,3 +18,6 @@ API Keys can be found here:
 https://twelvedata.com/docs#getting-started 
 
 https://www.chartjs.org/docs/latest/
+
+
+![NYME Screenshot](/NYME-screenshot.png)
