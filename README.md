@@ -2,9 +2,9 @@
 
 Authors:
 
-*[mjb527](https://github.com/mjb527)
-*[jben817](https://github.com/jben817)
-*[dancristello](https://github.com/dancristello)
+* [mjb527](https://github.com/mjb527)
+* [jben817](https://github.com/jben817)
+* [dancristello](https://github.com/dancristello)
 
 
 NYME
